@@ -28,8 +28,16 @@ def run_ttest(df, value_col, group_col, g1, g2):
     }
 
 # ---------- ANOVA ----------
-def run_anova(df, dep, cat):
-    formula = f'{dep} ~ C({cat})'
+def run_anova(df, dep, cat_vars):
+    import statsmodels.api as sm
+    from statsmodels.formula.api import ols
+
+    if len(cat_vars) == 0:
+        return "Select at least one categorical variable"
+
+    # Build formula dynamically
+    formula = dep + " ~ " + " + ".join([f"C({var})" for var in cat_vars])
+
     model = ols(formula, data=df).fit()
     return sm.stats.anova_lm(model, typ=2)
 
