@@ -1,7 +1,7 @@
-streamlit
+streamlit>=1.40
 pandas
 numpy
 matplotlib
-seaborn
 scipy
 statsmodels
+altair>=5
